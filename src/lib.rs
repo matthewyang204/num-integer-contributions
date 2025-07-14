@@ -1384,3 +1384,23 @@ fn test_multinomial() {
     check_multinomial!(u64, &[0], 1);
     check_multinomial!(u64, &[12345], 1);
 }
+
+/ Checks if a number is prime, and a collection of other functions to use it and based around it
+pub fn generate_primes(limit: usize) -> Vec<usize> {
+    let mut numbers: Vec<usize> = (2..=limit).collect();
+    let mut primes: Vec<usize> = Vec::new();
+
+    while let Some(current_prime) = numbers.first().cloned() {
+        primes.push(current_prime);
+        numbers.retain(|&num| num % current_prime != 0);
+    }
+
+    primes
+}
+pub fn is_prime(n: i64) -> bool {
+    if generate_primes(n as usize).contains(&(n as usize)) {
+        return true;
+    } else {
+        return false;
+    }
+}
